@@ -5,6 +5,10 @@ import HomeCampaigns from 'components/HomeCampaigns'
 
 const getCampaigns = async () => {
   const res = await fetch(`${process.env.BASE_FETCH_URL}/api/campaigns`)
+  if (res.status > 400) {
+    return []
+  }
+
   return await res.json()
 }
 
