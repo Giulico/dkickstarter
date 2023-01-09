@@ -1,12 +1,14 @@
 import { assert, expect } from 'chai'
-
+import { ethers } from 'hardhat'
+import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/dist/src/signer-with-address'
+import { Contract } from 'ethers'
 import compiledCampaign from '../ethereum/build/ethereum/contracts/Campaign.sol/Campaign.json'
 
-let owner
-let otherAccounts
-let factory
-let campaignAddress
-let campaign
+let owner: SignerWithAddress
+let otherAccounts: SignerWithAddress[]
+let factory: Contract
+let campaignAddress: string
+let campaign: Contract
 
 beforeEach(async () => {
   ;[owner, ...otherAccounts] = await ethers.getSigners()

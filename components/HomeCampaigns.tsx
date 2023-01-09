@@ -9,7 +9,7 @@ type Props = {
   campaigns: string[]
 }
 
-function HomeCampaigns({ campaigns }) {
+function HomeCampaigns({ campaigns }: Props) {
   return (
     <Container>
       <Row>
