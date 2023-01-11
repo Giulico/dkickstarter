@@ -1,5 +1,6 @@
 // Types
-import type { RootState, AppDispatch } from 'store'
+import type { RootState } from 'store'
+import type { ChangeEventHandler, FormEventHandler } from 'react'
 
 // Utils
 import { ethers } from 'ethers'
@@ -11,7 +12,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
 // Hooks
-import { useState, useCallback } from 'react'
+import { useState, useCallback, FormEvent } from 'react'
 import { useSelector } from 'react-redux'
 
 type Props = {}
@@ -26,12 +27,12 @@ const CreateCampaignForm = (props: Props) => {
   const wallet = useSelector((state: RootState) => state.wallet)
   const [fields, setField] = useState(initialState)
 
-  const createCampaign = useCallback(
+  const createCampaign: FormEventHandler<HTMLFormElement> = useCallback(
     async (e) => {
       e.preventDefault()
 
       const provider = new ethers.providers.Web3Provider(window.ethereum)
-      const walletAddress = wallet.account
+      const walletAddress = wallet.account as string
       const signer = provider.getSigner(walletAddress)
 
       const factoryAddress = process.env
@@ -54,7 +55,9 @@ const CreateCampaignForm = (props: Props) => {
     [fields.description, fields.minimum, fields.title, wallet.account]
   )
 
-  const onFieldChange = useCallback(
+  const onFieldChange: ChangeEventHandler<
+    HTMLInputElement | HTMLTextAreaElement
+  > = useCallback(
     (e) => {
       const target = e.currentTarget
       setField({

@@ -1,4 +1,7 @@
-export function bigNumberToDate(bNDate: BigNumber, options): string {
+export function bigNumberToDate(
+  bNDate: { hex: string },
+  options?: { [key: string]: string }
+): string {
   const opt = options || {
     weekday: 'long',
     year: 'numeric',

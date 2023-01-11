@@ -2,8 +2,6 @@ import CampaignFactory from 'ethereum/build/ethereum/contracts/CampaignFactory.s
 import { NextApiRequest, NextApiResponse } from 'next'
 import { ethers } from 'ethers'
 
-type Resolve = (value: unknown) => void
-
 function getContract() {
   const RPC = `${process.env.PROVIDER_URL}${process.env.PROVIDER_KEY}`
   const provider = new ethers.providers.JsonRpcProvider(RPC)

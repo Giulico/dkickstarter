@@ -1491,6 +1491,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-bootstrap@npm:^0.32.32":
+  version: 0.32.32
+  resolution: "@types/react-bootstrap@npm:0.32.32"
+  dependencies:
+    "@types/react": "*"
+  checksum: 93e98ab7ad0ea7e2d1553c2d128f1c878f6804c08d45697b6550a605edf1ae9306280600842664d1c19e16031c56ce6de1945940552cc5726ceba10f24926e88
+  languageName: node
+  linkType: hard
+
 "@types/react-dom@npm:18.0.10":
   version: 18.0.10
   resolution: "@types/react-dom@npm:18.0.10"
@@ -4065,17 +4074,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fs-extra@npm:^11.1.0":
-  version: 11.1.0
-  resolution: "fs-extra@npm:11.1.0"
-  dependencies:
-    graceful-fs: ^4.2.0
-    jsonfile: ^6.0.1
-    universalify: ^2.0.0
-  checksum: 5ca476103fa1f5ff4a9b3c4f331548f8a3c1881edaae323a4415d3153b5dc11dc6a981c8d1dd93eec8367ceee27b53f8bd27eecbbf66ffcdd04927510c171e7f
-  languageName: node
-  linkType: hard
-
 "fs-extra@npm:^7.0.0, fs-extra@npm:^7.0.1":
   version: 7.0.1
   resolution: "fs-extra@npm:7.0.1"
@@ -5514,6 +5512,7 @@ __metadata:
     "@types/mocha": ^10.0.1
     "@types/node": 18.11.18
     "@types/react": 18.0.26
+    "@types/react-bootstrap": ^0.32.32
     "@types/react-dom": 18.0.10
     "@types/react-redux": ^7.1.25
     bootstrap: ^5.2.3
@@ -5523,7 +5522,6 @@ __metadata:
     eslint-config-next: 13.1.1
     eslint-config-prettier: ^8.6.0
     ethers: ^5.7.2
-    fs-extra: ^11.1.0
     ganache: ^7.7.2
     hardhat: ^2.12.5
     hardhat-gas-reporter: ^1.0.9

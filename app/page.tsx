@@ -1,5 +1,3 @@
-import CampaignFactory from '../ethereum/build/ethereum/contracts/CampaignFactory.sol/CampaignFactory.json'
-
 import HomeDiscover from 'components/HomeDiscover'
 import HomeCampaigns from 'components/HomeCampaigns'
 
