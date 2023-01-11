@@ -2,7 +2,11 @@ import HomeDiscover from 'components/HomeDiscover'
 import HomeCampaigns from 'components/HomeCampaigns'
 
 const getCampaigns = async () => {
-  const res = await fetch(`${process.env.BASE_FETCH_URL}/api/campaigns`)
+  const host =
+    process.env.NEXT_PHASE === 'phase-production-build'
+      ? 'https://dkickstarter.vercel.app'
+      : 'http://localhost:3000'
+  const res = await fetch(`${host}/api/campaigns`)
   if (res.status > 400) {
     return []
   }
