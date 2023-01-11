@@ -7,7 +7,8 @@ type Resolve = (value: unknown) => void
 function getContract() {
   const RPC = `${process.env.PROVIDER_URL}${process.env.PROVIDER_KEY}`
   const provider = new ethers.providers.JsonRpcProvider(RPC)
-  const factoryAddress = process.env.CAMPAIGNS_FACTORY_ADDRESS as string
+  const factoryAddress = process.env
+    .NEXT_PUBLIC_CAMPAIGNS_FACTORY_ADDRESS as string
   const contract = new ethers.Contract(
     factoryAddress,
     CampaignFactory.abi,
@@ -21,8 +22,15 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  let data
+
+  // if (req.method === 'PUT') {
+  // } else {
+  // }
+
   const contract = await getContract()
-  const campaigns = await contract.getDeployedCampaigns()
+  data = await contract.getDeployedCampaigns()
+  const campaigns = [...data].reverse()
 
   res.status(200).json(campaigns)
 }

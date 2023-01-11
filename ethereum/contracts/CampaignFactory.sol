@@ -5,7 +5,13 @@ pragma solidity 0.8.17;
 import "./Campaign.sol";
 
 contract CampaignFactory {
-  address[] public deployedCampaigns;
+  struct DeployedCampaigns {
+    string title;
+    uint submissionDate;
+    address link;
+  }
+  mapping (uint => DeployedCampaigns) deployedCampaigns;
+  uint private campaignCount = 0;
 
   function createCampaign(
     string memory title,
@@ -14,10 +20,23 @@ contract CampaignFactory {
   ) public {
     // Deploy new Campaign
     address newCampaignAddress = address(new Campaign(msg.sender, title, description, minimum));
-    deployedCampaigns.push(newCampaignAddress);
+
+    DeployedCampaigns storage newCampaign = deployedCampaigns[campaignCount];
+
+    newCampaign.title = title;
+    newCampaign.submissionDate = block.timestamp;
+    newCampaign.link = newCampaignAddress;
+
+    campaignCount++;
   }
 
-  function getDeployedCampaigns() public view returns (address[] memory) {
-    return deployedCampaigns;
+  function getDeployedCampaigns() public view returns (DeployedCampaigns[] memory) {
+    DeployedCampaigns[] memory campaigns = new DeployedCampaigns[](campaignCount);
+
+    for (uint i = 0; i < campaignCount; i++) {
+      campaigns[i] = deployedCampaigns[i];
+    }
+
+    return campaigns;
   }
 }

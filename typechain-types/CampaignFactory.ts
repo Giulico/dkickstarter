@@ -23,18 +23,28 @@ import type {
   PromiseOrValue,
 } from "./common";
 
+export declare namespace CampaignFactory {
+  export type DeployedCampaignsStruct = {
+    title: PromiseOrValue<string>;
+    submissionDate: PromiseOrValue<BigNumberish>;
+    link: PromiseOrValue<string>;
+  };
+
+  export type DeployedCampaignsStructOutput = [string, BigNumber, string] & {
+    title: string;
+    submissionDate: BigNumber;
+    link: string;
+  };
+}
+
 export interface CampaignFactoryInterface extends utils.Interface {
   functions: {
     "createCampaign(string,string,uint256)": FunctionFragment;
-    "deployedCampaigns(uint256)": FunctionFragment;
     "getDeployedCampaigns()": FunctionFragment;
   };
 
   getFunction(
-    nameOrSignatureOrTopic:
-      | "createCampaign"
-      | "deployedCampaigns"
-      | "getDeployedCampaigns"
+    nameOrSignatureOrTopic: "createCampaign" | "getDeployedCampaigns"
   ): FunctionFragment;
 
   encodeFunctionData(
@@ -46,20 +56,12 @@ export interface CampaignFactoryInterface extends utils.Interface {
     ]
   ): string;
   encodeFunctionData(
-    functionFragment: "deployedCampaigns",
-    values: [PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
     functionFragment: "getDeployedCampaigns",
     values?: undefined
   ): string;
 
   decodeFunctionResult(
     functionFragment: "createCampaign",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "deployedCampaigns",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -104,12 +106,9 @@ export interface CampaignFactory extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    deployedCampaigns(
-      arg0: PromiseOrValue<BigNumberish>,
+    getDeployedCampaigns(
       overrides?: CallOverrides
-    ): Promise<[string]>;
-
-    getDeployedCampaigns(overrides?: CallOverrides): Promise<[string[]]>;
+    ): Promise<[CampaignFactory.DeployedCampaignsStructOutput[]]>;
   };
 
   createCampaign(
@@ -119,12 +118,9 @@ export interface CampaignFactory extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  deployedCampaigns(
-    arg0: PromiseOrValue<BigNumberish>,
+  getDeployedCampaigns(
     overrides?: CallOverrides
-  ): Promise<string>;
-
-  getDeployedCampaigns(overrides?: CallOverrides): Promise<string[]>;
+  ): Promise<CampaignFactory.DeployedCampaignsStructOutput[]>;
 
   callStatic: {
     createCampaign(
@@ -134,12 +130,9 @@ export interface CampaignFactory extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    deployedCampaigns(
-      arg0: PromiseOrValue<BigNumberish>,
+    getDeployedCampaigns(
       overrides?: CallOverrides
-    ): Promise<string>;
-
-    getDeployedCampaigns(overrides?: CallOverrides): Promise<string[]>;
+    ): Promise<CampaignFactory.DeployedCampaignsStructOutput[]>;
   };
 
   filters: {};
@@ -152,11 +145,6 @@ export interface CampaignFactory extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    deployedCampaigns(
-      arg0: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     getDeployedCampaigns(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
@@ -166,11 +154,6 @@ export interface CampaignFactory extends BaseContract {
       description: PromiseOrValue<string>,
       minimum: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    deployedCampaigns(
-      arg0: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getDeployedCampaigns(

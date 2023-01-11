@@ -37,4 +37,4 @@ In order to deploy the application on the "production" chain (Goerli testnet) ru
 yarn deploy
 ```
 
-This command will return the address of the contract. This address is the value of `CAMPAIGNS_FACTORY_ADDRESS` env var.
+This command will return the address of the contract. This address is the value of `NEXT_PUBLIC_CAMPAIGNS_FACTORY_ADDRESS` env var. This variable is shared with the browser in order to let Metamask perform transactions.

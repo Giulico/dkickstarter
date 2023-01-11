@@ -37,8 +37,8 @@
       ]
     },
     "/Users/giulio/repo/kickstart/ethereum/contracts/CampaignFactory.sol": {
-      "lastModificationDate": 1673279004616,
-      "contentHash": "f4b16ac8b45345c6110426527b6bad60",
+      "lastModificationDate": 1673368599706,
+      "contentHash": "0f88a919559d2a41ca42ad18722c7665",
       "sourceName": "ethereum/contracts/CampaignFactory.sol",
       "solcConfig": {
         "version": "0.8.17",

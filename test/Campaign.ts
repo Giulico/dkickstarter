@@ -7,7 +7,6 @@ import compiledCampaign from '../ethereum/build/ethereum/contracts/Campaign.sol/
 let owner: SignerWithAddress
 let otherAccounts: SignerWithAddress[]
 let factory: Contract
-let campaignAddress: string
 let campaign: Contract
 
 beforeEach(async () => {
@@ -20,9 +19,9 @@ beforeEach(async () => {
     'Lorem ipsum dolor sit amet...',
     '100'
   )
-  ;[campaignAddress] = await factory.getDeployedCampaigns()
+  const [lastCampaign] = await factory.getDeployedCampaigns()
 
-  campaign = new ethers.Contract(campaignAddress, compiledCampaign.abi, owner)
+  campaign = new ethers.Contract(lastCampaign.link, compiledCampaign.abi, owner)
 })
 
 describe('Campaigns', () => {
