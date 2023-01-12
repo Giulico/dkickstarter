@@ -30,6 +30,14 @@ export const checkConnection = createAsyncThunk(
       method: 'eth_accounts',
     })
 
+    // Used disconnected
+    if (accounts.length === 0) {
+      return {
+        account: null,
+        balance: null,
+      }
+    }
+
     const balance = await getBalance(accounts)
 
     return { account: accounts[0], balance }
