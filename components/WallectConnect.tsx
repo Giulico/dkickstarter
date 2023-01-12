@@ -39,8 +39,10 @@ export default function WalletConnect() {
     }
 
     return () => {
-      window.ethereum.removeListener('accountsChanged', checkAccount)
-      window.ethereum.removeListener('chainChanged', chainChanged)
+      if (window.ethereum) {
+        window.ethereum.removeListener('accountsChanged', checkAccount)
+        window.ethereum.removeListener('chainChanged', chainChanged)
+      }
     }
   }, [chainChanged, checkAccount, dispatch])
 

@@ -5,6 +5,7 @@ import type { ChangeEventHandler, FormEventHandler } from 'react'
 // Utils
 import { ethers } from 'ethers'
 import CampaignFactory from 'ethereum/build/ethereum/contracts/CampaignFactory.sol/CampaignFactory.json'
+import { getMetamaskSigner } from 'utils/wallet'
 
 // Components
 import FloatingLabel from 'react-bootstrap/FloatingLabel'
@@ -12,7 +13,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
 // Hooks
-import { useState, useCallback, FormEvent } from 'react'
+import { useState, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 
 type Props = {}
@@ -30,10 +31,11 @@ const CreateCampaignForm = (props: Props) => {
   const createCampaign: FormEventHandler<HTMLFormElement> = useCallback(
     async (e) => {
       e.preventDefault()
+      if (!wallet.account) {
+        return
+      }
 
-      const provider = new ethers.providers.Web3Provider(window.ethereum)
-      const walletAddress = wallet.account as string
-      const signer = provider.getSigner(walletAddress)
+      const signer = getMetamaskSigner(wallet.account)
 
       const factoryAddress = process.env
         .NEXT_PUBLIC_CAMPAIGNS_FACTORY_ADDRESS as string

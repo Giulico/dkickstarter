@@ -46,3 +46,9 @@ export const switchNetwork = async () => {
   // refresh
   window.location.reload()
 }
+
+export const getMetamaskSigner = (account: string) => {
+  const provider = new ethers.providers.Web3Provider(window.ethereum)
+  const walletAddress = account
+  return provider.getSigner(walletAddress)
+}

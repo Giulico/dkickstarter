@@ -23,7 +23,7 @@ const HomeWalletConnect = () => {
   }, [dispatch])
 
   return (
-    <div>
+    <div className="text-center px-5">
       <h2>Make your idea a real project!</h2>
       <p>
         To start raising funds connect your Metamask account and sumbit your

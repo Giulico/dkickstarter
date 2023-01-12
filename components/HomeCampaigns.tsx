@@ -1,5 +1,7 @@
 'use client'
 
+import type { BigNumber } from 'ethers'
+
 // Utils
 import { bigNumberToDate } from 'utils/date'
 
@@ -15,8 +17,9 @@ import HomeWalletConnect from './HomeWalletConnect'
 
 // Hooks
 import { useSelector } from 'react-redux'
+import CampaignCard from './CampaignCard'
 
-type Campaign = [string, { hex: string }, string]
+type Campaign = [string, BigNumber & { hex: string }, string]
 
 type Props = {
   campaigns: Campaign[]
@@ -33,13 +36,12 @@ function HomeCampaigns({ campaigns }: Props) {
           {campaigns.map((campaign) => {
             const [title, submissionDate, address] = campaign
             return (
-              <div key={title}>
-                <h3>{title}</h3>
-                <p>
-                  <em>{bigNumberToDate(submissionDate)}</em>
-                </p>
-                <em>{address}</em>
-              </div>
+              <CampaignCard
+                key={title}
+                title={title}
+                submissionDate={bigNumberToDate(submissionDate)}
+                address={address}
+              />
             )
           })}
         </Col>

@@ -1,7 +1,13 @@
+import type { BigNumber } from 'ethers'
+
 export function bigNumberToDate(
-  bNDate: { hex: string },
+  bNDate: BigNumber & { hex: string },
   options?: { [key: string]: string }
 ): string {
+  if (!bNDate) {
+    return ''
+  }
+
   const opt = options || {
     weekday: 'long',
     year: 'numeric',
@@ -9,7 +15,7 @@ export function bigNumberToDate(
     day: 'numeric',
   }
 
-  const timestamp = parseInt(bNDate.hex)
+  const timestamp = bNDate.hex ? parseInt(bNDate.hex) : 0
   const date = new Date(timestamp * 1000) // date in milliseconds
 
   return date.toLocaleDateString('en-US', opt)
