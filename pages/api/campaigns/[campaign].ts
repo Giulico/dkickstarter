@@ -39,6 +39,8 @@ export default async function handler(
     'description',
     'submissionDate',
     'minimumContribution',
+    'fundersCount',
+    'requestCount',
   ]
 
   const fetches = fields.map((field) => contract[field]())

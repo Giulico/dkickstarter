@@ -33,6 +33,7 @@ function HomeCampaigns({ campaigns }: Props) {
     <Container>
       <Row>
         <Col md="6">
+          <h3 className="mb-3">Featured projects</h3>
           {campaigns.map((campaign) => {
             const [title, submissionDate, address] = campaign
             return (

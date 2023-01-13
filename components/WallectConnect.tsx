@@ -61,7 +61,7 @@ export default function WalletConnect() {
           variant="primary"
           onClick={connectionHandler}
         >
-          Connect account
+          Connect wallet
         </Button>
       )}
     </div>

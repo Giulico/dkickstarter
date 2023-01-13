@@ -1,9 +1,39 @@
+:root {
+  --bs-link-hover-color: #ffffff;
+  --bs-primary-rgb: 133, 11, 255;
+  --bs-body-color: #ffffff;
+  --bs-body-bg: transparent;
+}
+
+.btn {
+  --bs-btn-font-size: 0.9rem;
+  --bs-btn-padding-x: 1.5rem;
+  --bs-btn-padding-y: 0.725rem;
+}
+
+.btn-sm {
+  --bs-btn-padding-x: 1rem;
+  --bs-btn-padding-y: 0.35rem;
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+html {
+  color: white;
+  background: black;
+  background-image: radial-gradient(
+      at 0% 0%,
+      hsla(253, 16%, 7%, 1) 0,
+      transparent 50%
+    ),
+    radial-gradient(at 50% 0%, hsla(225, 40%, 38%, 1) 0, transparent 50%),
+    radial-gradient(at 100% 0%, hsla(258, 49%, 30%, 1) 0, transparent 50%);
 }
 
 main {
@@ -15,24 +45,52 @@ a {
   text-decoration: none;
 }
 
+a:hover {
+  background-color: rgba(var(--bs-primary-rgb), 0.2);
+  transition: all 0.3s;
+}
+
 * {
   box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+.btn-primary {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  background-color: transparent;
+  border: 0px;
+  box-shadow: 0px 0px 2px 0px rgba(140, 0, 255, 1);
+}
 
-  body {
-    color: white;
-    background: black;
-    background-image: radial-gradient(
-        at 0% 0%,
-        hsla(253, 16%, 7%, 1) 0,
-        transparent 50%
-      ),
-      radial-gradient(at 50% 0%, hsla(225, 40%, 38%, 1) 0, transparent 50%),
-      radial-gradient(at 100% 0%, hsla(258, 49%, 30%, 1) 0, transparent 50%);
-  }
+.btn-primary:after {
+  position: absolute;
+  top: 0;
+  content: '';
+  display: inline-block;
+  background: hsla(225, 40%, 38%, 1);
+  background: linear-gradient(
+    45deg,
+    hsla(225, 40%, 38%, 1) 0%,
+    hsla(258, 75%, 45%, 1) 51%,
+    hsla(338, 88%, 41%, 1) 100%
+  );
+  height: 50px;
+  width: 372px;
+  z-index: -1;
+  transform: translateX(-280px);
+  transition: transform 400ms ease-in;
+}
+
+.btn-primary:hover,
+:not(.btn-check) + .btn-primary:active,
+.btn-primary:active {
+  background-color: transparent;
+  border: 0px;
+  box-shadow: 0px 0px 10px 0px rgba(140, 0, 255, 1);
+}
+
+.btn-primary:hover:after,
+.btn-primary:active:after {
+  transform: translateX(-200px);
 }

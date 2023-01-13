@@ -35,11 +35,13 @@ async function CampaignPage({ params: { campaign } }: Props) {
       </div>
       <CampaignOverview
         address={campaign}
-        manager={campaignData.manager}
-        title={campaignData.title}
         description={campaignData.description}
+        fundersCount={campaignData.fundersCount}
+        manager={campaignData.manager}
         minimumContribution={campaignData.minimumContribution}
+        requestCount={campaignData.requestCount}
         submissionDate={campaignData.submissionDate}
+        title={campaignData.title}
       />
     </>
   )

@@ -56,9 +56,6 @@ const Contribute = ({ manager, address }: Props) => {
 
   return (
     <div>
-      <h3>Do you like this idea?</h3>
-      <p>Support the project, just because it speaks to you.</p>
-
       {manager.toLowerCase() === wallet.account?.toLowerCase() && (
         <p>(Of course you can contribute to your own campaign!)</p>
       )}

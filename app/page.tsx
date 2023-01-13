@@ -20,8 +20,13 @@ export default async function Homepage() {
   return (
     <>
       <HomeDiscover>
-        <h1>Hey!</h1>
-        <p>Questo contenuto è in un Server Component e non è interattivo</p>
+        <h1>Bring a creative project to life. Transparently.</h1>
+        <p>This PoC simulates Kickstarter in a decentralized context</p>
+        <ul>
+          <li>Create a campaign and describe your idea</li>
+          <li>Open spending requests to transparently use your funds</li>
+          <li>Contribute to others campaigns using your GoerliETH</li>
+        </ul>
       </HomeDiscover>
       <HomeCampaigns campaigns={campaigns} />
     </>
