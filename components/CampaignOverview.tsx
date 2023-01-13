@@ -24,6 +24,7 @@ import { useCallback } from 'react'
 
 type Props = {
   address: string
+  balance: BigNumber & { hex: string }
   description: string
   fundersCount: number
   manager: string
@@ -35,6 +36,7 @@ type Props = {
 
 function CampaignOverview({
   address,
+  balance,
   description,
   fundersCount,
   manager,
@@ -62,6 +64,7 @@ function CampaignOverview({
           )}
           <CampaignDescription
             title={title}
+            balance={balance}
             description={description}
             minimumContribution={minimumContribution}
             submissionDate={submissionDate}

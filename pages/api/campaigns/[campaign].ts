@@ -7,17 +7,17 @@ import Campaign from 'ethereum/build/ethereum/contracts/Campaign.sol/Campaign.js
 
 function getContract(address: string) {
   let contract
+  let provider
 
   if (address.length >= 40) {
     const RPC = `${process.env.PROVIDER_URL}${process.env.PROVIDER_KEY}`
-    const provider = new ethers.providers.JsonRpcProvider(RPC)
-    const campaignAddress = address
-    contract = new ethers.Contract(campaignAddress, Campaign.abi, provider)
+    provider = new ethers.providers.JsonRpcProvider(RPC)
+    contract = new ethers.Contract(address, Campaign.abi, provider)
   } else {
     contract = null
   }
 
-  return contract
+  return { contract, provider }
 }
 
 export default async function handler(
@@ -26,7 +26,7 @@ export default async function handler(
 ) {
   let data = {}
   const address = req.query.campaign as string
-  const contract = await getContract(address)
+  const { contract, provider } = await getContract(address)
 
   if (!contract) {
     res.status(500).json({ message: 'Invalid arguments' })
@@ -43,14 +43,21 @@ export default async function handler(
     'requestCount',
   ]
 
+  const balance = await (
+    provider as ethers.providers.JsonRpcProvider
+  ).getBalance(contract.address)
+
   const fetches = fields.map((field) => contract[field]())
   data = await Promise.all(fetches).then((res) =>
-    res.reduce(
-      (prev, curr, index) => ({
-        ...prev,
-        [fields[index]]: curr,
-      }),
-      {}
+    Object.assign(
+      res.reduce(
+        (prev, curr, index) => ({
+          ...prev,
+          [fields[index]]: curr,
+        }),
+        {}
+      ),
+      { balance }
     )
   )
 

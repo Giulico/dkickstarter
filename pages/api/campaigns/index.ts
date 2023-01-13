@@ -22,13 +22,16 @@ export default async function handler(
 ) {
   let data
 
-  // if (req.method === 'PUT') {
-  // } else {
-  // }
+  if (req.method === 'PUT') {
+    console.log('Request a PUT')
+    console.log(req.body)
+    data = []
+  } else {
+    const contract = await getContract()
+    const campaigns = await contract.getDeployedCampaigns()
 
-  const contract = await getContract()
-  data = await contract.getDeployedCampaigns()
-  const campaigns = [...data].reverse()
+    data = [...campaigns].reverse()
+  }
 
-  res.status(200).json(campaigns)
+  res.status(200).json(data)
 }

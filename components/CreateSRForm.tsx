@@ -1,6 +1,7 @@
 'use client'
 
 // Types
+import type { RootState } from 'store'
 import type { ChangeEventHandler, FormEventHandler } from 'react'
 
 // Components
@@ -12,7 +13,14 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
 // Hooks
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useMemo } from 'react'
+import { useSelector } from 'react-redux'
+import { usePathname } from 'next/navigation'
+
+// Utils
+import { ethers } from 'ethers'
+import { getMetamaskSigner } from 'utils/wallet'
+import Campaign from 'ethereum/build/ethereum/contracts/Campaign.sol/Campaign.json'
 
 type Props = {}
 
@@ -23,13 +31,42 @@ const initialState = {
 }
 
 export default function CreateSRForm({}: Props) {
+  const wallet = useSelector((state: RootState) => state.wallet)
   const [fields, setField] = useState(initialState)
+  const pathname = usePathname()
+
+  const contractAddress = useMemo(
+    () => pathname?.split('/')[1] as string,
+    [pathname]
+  )
 
   const createRequest: FormEventHandler<HTMLFormElement> = useCallback(
     async (e) => {
-      console.log('Request submitted')
+      e.preventDefault()
+      if (!wallet.account) {
+        return
+      }
+
+      const signer = getMetamaskSigner(wallet.account)
+
+      const contract = new ethers.Contract(
+        contractAddress,
+        Campaign.abi,
+        signer
+      )
+
+      // We need to buy separated garbage cans.
+      // 0x82DD597fA8fFedF562a370b14E9E7caBc0637582
+      await contract.createRequest(
+        fields.description,
+        ethers.utils.parseEther(fields.value),
+        fields.recipient
+      )
+
+      // Reset form
+      setField(initialState)
     },
-    []
+    [fields, wallet.account]
   )
 
   const onFieldChange: ChangeEventHandler<

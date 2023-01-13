@@ -10,6 +10,7 @@ import Alert from 'react-bootstrap/Alert'
 import { useState } from 'react'
 
 type Props = {
+  balance: BigNumber & { hex: string }
   description: string
   fundersCount: number
   minimumContribution: BigNumberish
@@ -18,6 +19,7 @@ type Props = {
 }
 
 function CampaignDescription({
+  balance,
   description,
   fundersCount,
   minimumContribution,
@@ -32,6 +34,10 @@ function CampaignDescription({
     <>
       <span className="text-muted">{bigNumberToDate(submissionDate)}</span>
       <h1>{title}</h1>
+      <p>
+        <strong>Pledged: </strong>
+        <Badge bg="success">{ethers.utils.formatEther(balance)} ETH</Badge>
+      </p>
       <p>
         <strong>Minimum contribution: </strong>
         <Badge bg="success">
