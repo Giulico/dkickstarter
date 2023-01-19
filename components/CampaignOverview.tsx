@@ -41,7 +41,7 @@ function CampaignOverview({
   fundersCount,
   manager,
   minimumContribution,
-  requestCount,
+  requestCount = 0,
   submissionDate,
   title,
 }: Props) {

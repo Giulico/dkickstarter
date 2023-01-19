@@ -1,3 +1,6 @@
+// Type
+import type { BigNumber } from 'ethers'
+
 // Utils
 import { BASE_HOST } from 'utils/const'
 
@@ -11,22 +14,37 @@ type Props = {
   }
 }
 
-const getCampaign = async (address: string) => {
-  const res = await fetch(`${BASE_HOST}/api/campaigns/${address}`)
-  if (res.status > 400) {
-    return []
-  }
+type Campaign = [string, BigNumber & { hex: string }, string]
 
-  return await res.json()
+const getCampaign = (address: string) => {
+  console.log('\n\nFetching ', `${BASE_HOST}/api/campaigns/${address}\n\n`)
+  return fetch(`${BASE_HOST}/api/campaigns/${address}`)
+    .then((res) => res.json())
+    .catch(() => {
+      return {}
+    })
+}
+
+const getCampaigns = () => {
+  return fetch(`${BASE_HOST}/api/campaigns`)
+    .then((res) => res.json())
+    .catch(() => {
+      return {}
+    })
+}
+
+export async function generateStaticParams() {
+  const campaigns = await getCampaigns()
+  return campaigns.map((campaign: Campaign) => {
+    const [title, submissionDate, address] = campaign
+    return {
+      campaign: address,
+    }
+  })
 }
 
 async function CampaignPage({ params: { campaign } }: Props) {
-  let campaignData
-  if (campaign.length >= 40) {
-    campaignData = await getCampaign(campaign)
-  } else {
-    return null
-  }
+  const data = await getCampaign(campaign)
 
   return (
     <>
@@ -35,14 +53,14 @@ async function CampaignPage({ params: { campaign } }: Props) {
       </div>
       <CampaignOverview
         address={campaign}
-        balance={campaignData.balance}
-        description={campaignData.description}
-        fundersCount={campaignData.fundersCount}
-        manager={campaignData.manager}
-        minimumContribution={campaignData.minimumContribution}
-        requestCount={campaignData.requestCount}
-        submissionDate={campaignData.submissionDate}
-        title={campaignData.title}
+        balance={data.balance}
+        description={data.description}
+        fundersCount={data.fundersCount}
+        manager={data.manager}
+        minimumContribution={data.minimumContribution}
+        requestCount={data.requestCount}
+        submissionDate={data.submissionDate}
+        title={data.title}
       />
     </>
   )

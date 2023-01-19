@@ -26,6 +26,10 @@ export default async function handler(
 ) {
   let data = {}
   const address = req.query.campaign as string
+  if (!address || address.length < 40) {
+    res.status(500).json({ message: 'Invalid address' })
+    return
+  }
   const { contract, provider } = await getContract(address)
 
   if (!contract) {

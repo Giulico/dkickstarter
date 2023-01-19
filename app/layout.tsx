@@ -1,7 +1,8 @@
 import type { ReactNode } from 'react'
 
+import 'styles/config.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import '../styles/globals.css'
+import 'styles/globals.css'
 
 import Providers from './Providers'
 import AppHeader from 'components/AppHeader'
