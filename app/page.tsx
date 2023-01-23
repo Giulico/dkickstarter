@@ -6,12 +6,13 @@ import HomeDiscover from 'components/HomeDiscover'
 import HomeCampaigns from 'components/HomeCampaigns'
 
 const getCampaigns = async () => {
-  const res = await fetch(`${BASE_HOST}/api/campaigns`)
-  if (res.status > 400) {
-    return []
-  }
-
-  return await res.json()
+  console.log('\n\nHOME\n', `${BASE_HOST}/api/campaigns\n\n`)
+  return fetch(`${BASE_HOST}/api/campaigns`, { cache: 'no-cache' })
+    .then((res) => res.json())
+    .catch((err) => {
+      console.log(err)
+      return []
+    })
 }
 
 export default async function Homepage() {

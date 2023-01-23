@@ -17,36 +17,40 @@ type Props = {
 type Campaign = [string, BigNumber & { hex: string }, string]
 
 const getCampaign = (address: string) => {
-  console.log('\n\nFetching ', `${BASE_HOST}/api/campaigns/${address}\n\n`)
+  console.log('\n\n[campaign]\n', `${BASE_HOST}/api/campaigns/${address}\n\n`)
   return fetch(`${BASE_HOST}/api/campaigns/${address}`)
     .then((res) => res.json())
-    .catch(() => {
+    .catch((err) => {
+      console.log(err)
       return {}
     })
 }
 
-const getCampaigns = () => {
-  return fetch(`${BASE_HOST}/api/campaigns`)
-    .then((res) => res.json())
-    .catch(() => {
-      return {}
-    })
-}
+// const getCampaigns = () => {
+//   return fetch(`${BASE_HOST}/api/campaigns`)
+//     .then((res) => res.json())
+//     .catch(() => {
+//       return {}
+//     })
+// }
 
-export async function generateStaticParams() {
-  const campaigns = await getCampaigns()
-  return campaigns.map((campaign: Campaign) => {
-    const [title, submissionDate, address] = campaign
-    return {
-      campaign: address,
-    }
-  })
-}
+// ! This page must be SSR
+// export async function generateStaticParams() {
+//   const campaigns = await getCampaigns()
+//   return campaigns.map((campaign: Campaign) => {
+//     const [title, submissionDate, address] = campaign
+//     return {
+//       campaign: address,
+//     }
+//   })
+// }
 
 async function CampaignPage({ params: { campaign } }: Props) {
   const data = await getCampaign(campaign)
 
-  return (
+  console.log('DATA', data)
+
+  return data.manager ? (
     <>
       <div className="px-3 my-5">
         <Link href="/">← Go back</Link>
@@ -63,6 +67,6 @@ async function CampaignPage({ params: { campaign } }: Props) {
         title={data.title}
       />
     </>
-  )
+  ) : null
 }
 export default CampaignPage
